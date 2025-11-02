@@ -1,0 +1,2 @@
+two solution, one is you simulate the rotate of string by move left or move right, the steps you can choose to move is from 1 to the length of the string.
+another solution is s2 is the substring of s1+s1,
