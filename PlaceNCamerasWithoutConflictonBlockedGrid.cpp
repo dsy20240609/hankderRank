@@ -29,10 +29,10 @@ void place(vector<vector<int>>& grid, int index, int n, bool& res) {
         return;
     }
 
-    size_t column = grid[n].size();
-    if(allZero(grid[n]) {
+    size_t column = grid[index].size();
+    if(allZero(grid[index]) {
         for(size_t i=0; i < column;++i) {
-                grid[n][i] =1;
+                grid[index][i] =1;
             for(int c=0; c< column; ++c) {
                 grid[i][c]=1;
             } // mark all row to 1
