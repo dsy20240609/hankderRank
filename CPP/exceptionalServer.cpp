@@ -33,16 +33,23 @@ int main() {
 	while(T--) {
 		long long A, B;
 		cin >> A >> B;
+ 
+        try {
+            cout << Server::compute(A, B) << endl;
+        }
+        catch (bad_alloc& e) {
+            cout << "Not enough memory" << endl;
+        }
+        catch (exception& e) {
+            cout << "Exception: " << e.what() << endl;
+        }
+        catch (...) {
+            cout << "Other Exception" << endl;
+        }   
+	}
+	cout << Server::getLoad() << endl;
+	return 0;
+}
 
-		/* Enter your code here. */
-   Server s;
-   int T;
-   cin>>T;
-   for(int i=0;i <T;++i) {
-    int A,B;
-    cin>>A>>B;
-    try(s.compute(, long long B)
-   }
-
-   // problem used to practice get familiar with cpp try catch
-   
+// by natuarally, the code can produce exception and your work is the handel the throw out
+// exception and print out corresponding message
