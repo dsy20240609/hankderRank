@@ -126,3 +126,67 @@ class LRUCache : public Cache {
 
         }
  };
+
+ // this is the correct working code
+ class LRUCache : public Cache {
+    public:
+        LRUCache(int capacity):Cache() {
+            cp=capacity;
+            tail=nullptr;
+            head=nullptr;
+        };
+        void set(int a ,int b) override {
+            if(mp.find(a) != mp.end()) {
+                mp[a]->value=b;
+                if(mp[a] != head) { // overwrite exsit value
+                    Node* cur=mp[a];
+                    head->prev=cur;
+                    cur->next=head;
+                    tail->next=cur;
+                    cur->prev=tail;
+                    head=cur;
+                } // if head, then keep the order as it is
+            } else {
+                if(mp.size() < cp)  {// the cache is not full
+                    Node* toAdd = new Node(nullptr,nullptr,a,b);
+                    if(head != nullptr) {
+                        head->prev=toAdd;
+                        toAdd->next=head;
+                        tail->next=toAdd;
+                        toAdd->prev=tail;
+                        head=toAdd;
+                    } else {
+                        head=toAdd;
+                        tail=toAdd;
+                        head->next=tail;
+                        head->prev=tail;
+                    }
+                    mp.insert(pair<int,Node*>(a,toAdd));
+                } else { // replace the least recent used element which is the header point;
+                    Node* toAdd=new Node(nullptr,nullptr,a,b);
+                    tail->next=nullptr;
+                    head->prev=nullptr;
+                    Node* tailPrev=tail->prev;
+                    tailPrev->next=toAdd;
+                    toAdd->prev=tailPrev;
+                    toAdd->next=head;
+                    head->prev=toAdd;
+                     
+                    int keyToDelete = tail->key;
+                    mp.erase(keyToDelete);
+                    delete tail;
+                    head=toAdd;
+                    tail=toAdd->prev;
+                }
+            }
+        }
+        int get(int a) override {
+            map<int,Node*>::iterator it = mp.find(a);
+            if(it !=mp.end()) {
+                return it->second->value; 
+            } else {
+                return -1;
+            }
+
+        }
+ };
