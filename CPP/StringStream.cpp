@@ -12,6 +12,13 @@ vector<int> parseInts(string str) {
         result.push_back(std::stoi(item));
     }
     return result;
+	vector<int> res;
+    stringstream ss(str);
+    string temp;
+    while(getline(ss,temp,',')) {
+        res.push_back(std::stoi(temp));
+    }
+    return res;
 }
 
 int main() {
@@ -26,3 +33,4 @@ int main() {
 }
 
 stringstream very useful for parse string
+}
